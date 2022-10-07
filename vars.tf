@@ -32,3 +32,15 @@ variable "external-interface" {
   type = string
   sensitive = false
 }
+
+# Modify if using a port other than standard ports
+variable "http-port"{
+    type = string
+    default = "HTTP"
+}
+
+# Modify if using a port other than standard ports
+variable "https-port" {
+  type = string
+  default = "HTTPS"
+}
