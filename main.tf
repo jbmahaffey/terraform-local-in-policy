@@ -32,7 +32,7 @@ resource "fortios_firewall_localinpolicy" "localin-deny" {
   action            = "deny"
   ha_mgmt_intf_only = "disable"
   intf              = var.external-interface
-  policyid          = 0
+  policyid          = 101
   schedule          = "always"
   status            = "enable"
   depends_on = [
@@ -60,7 +60,7 @@ resource "fortios_firewall_localinpolicy" "localin" {
   action            = "accept"
   ha_mgmt_intf_only = "disable"
   intf              = var.external-interface
-  policyid          = 0
+  policyid          = 100
   schedule          = "always"
   status            = "enable"
 
