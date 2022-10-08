@@ -44,11 +44,11 @@ resource "fortios_firewall_localinpolicy" "localin-deny" {
   }
 
   service {
-    name = "HTTP"
+    name = var.http-port
   }
 
   service {
-    name = "HTTPS"
+    name = var.https-port
   }
 
   srcaddr {
@@ -69,11 +69,11 @@ resource "fortios_firewall_localinpolicy" "localin" {
   }
 
   service {
-    name = "HTTP"
+    name = var.http-port
   }
 
   service {
-    name = "HTTPS"
+    name = var.https-port
   }
 
   srcaddr {
