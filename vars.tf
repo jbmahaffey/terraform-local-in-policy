@@ -42,5 +42,5 @@ variable "http-port"{
 # Modify if using a port other than standard ports
 variable "https-port" {
   type = string
-  default = "HTTPS"
+  default = "10443" # If custom port put the port number ie. 10443
 }

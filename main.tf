@@ -12,6 +12,24 @@ provider "fortios" {
   insecure = "true"
 }
 
+resource "fortios_firewallservice_custom" "adminporthttp" {
+  count = var.http-port != "HTTP" ? 1 : 0
+  category = "General"
+  name = "mgmt-http-service"
+  protocol = "TCP"
+  protocol_number = 6
+  tcp_portrange = var.http-port
+}
+
+resource "fortios_firewallservice_custom" "adminporthttps" {
+  count = var.https-port != "HTTPS" ? 1 : 0
+  category = "General"
+  name = "mgmt-https-service"
+  protocol = "TCP"
+  protocol_number = 6
+  tcp_portrange = var.https-port
+}
+
 resource "fortios_firewall_address" "mgmtadd" {
   for_each = var.mgmtobj
   name = each.key
@@ -44,11 +62,11 @@ resource "fortios_firewall_localinpolicy" "localin-deny" {
   }
 
   service {
-    name = var.http-port
+    name = var.http-port == "HTTP" ? var.http-port : fortios_firewallservice_custom.adminporthttp[0].name
   }
 
   service {
-    name = var.https-port
+    name = var.https-port == "HTTPS" ? var.https-port : fortios_firewallservice_custom.adminporthttps[0].name
   }
 
   srcaddr {
@@ -69,11 +87,11 @@ resource "fortios_firewall_localinpolicy" "localin" {
   }
 
   service {
-    name = var.http-port
+    name = var.http-port == "HTTP" ? var.http-port : fortios_firewallservice_custom.adminporthttp[0].name
   }
 
   service {
-    name = var.https-port
+    name = var.https-port == "HTTPS" ? var.https-port : fortios_firewallservice_custom.adminporthttps[0].name
   }
 
   srcaddr {
